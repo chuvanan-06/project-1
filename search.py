@@ -98,10 +98,9 @@ def uniformCostSearch(problem: SearchProblem):
     """Search the node of least total cost first."""
     # Khởi tạo hàng đợi ưu tiên
     frontier = util.PriorityQueue()
-    
-    # Tập hợp các trạng thái đã duyệt qua để tránh đi vào vòng lặp
+
     visited = set()
-    
+
     # Lấy trạng thái bắt đầu
     start_state = problem.getStartState()
     
@@ -109,10 +108,8 @@ def uniformCostSearch(problem: SearchProblem):
     frontier.push((start_state, [], 0), 0)
     
     while not frontier.isEmpty():
-        # Lấy trạng thái có chi phí thấp nhất ra khỏi hàng đợi
         current_state, actions, current_cost = frontier.pop()
-        
-        # Kiểm tra đích đến LÚC LẤY RA (pop) thay vì lúc đẩy vào (push)
+ 
         if problem.isGoalState(current_state):
             return actions
             
