@@ -87,11 +87,59 @@ def depthFirstSearch(problem: SearchProblem):
     print("Start's successors:", problem.getSuccessors(problem.getStartState()))
     """
     "*** YOUR CODE HERE ***"
+
+    # Moi phan tu trong stack: (trang thai, duong di tu dau toi trang thai do)
+    stack = util.Stack()
+    stack.push((problem.getStartState(), []))
+
+    visited = set()  #chi dung de kiem tra "da mo chua", khong duyet qua no
+
+    while not stack.isEmpty():
+        state, path = stack.pop()
+
+        # kiem tra dich luc lay ra khoi ngan xep
+        if problem.isGoalState(state):
+            return path
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        # Day theo dung thu tu getSuccessors tra ve (khong sap xep, khong dao)
+        for successor, action, stepCost in problem.getSuccessors(state):
+            if successor not in visited:
+                stack.push((successor, path + [action]))
+
+    return []  #khong tim duoc duong
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem: SearchProblem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+
+    # Moi phan tu trong queue: (trang thai, duong di tu dau den trang thai do)
+    queue = util.Queue()
+    queue.push((problem.getStartState(), []))
+
+    visited = set()  #chi dung de kiem tra "da mo chua", khong duyet qua no
+
+    while not queue.isEmpty():
+        state, path = queue.pop()
+
+        # Kiem tra dich luc lay ra khoi queue.
+        if problem.isGoalState(state):
+            return path
+
+        if state in visited:
+            continue
+        visited.add(state)
+
+        # Day theo dung thu tu getSuccessors tra ve (khong sap xep, khong dao)
+        for successor, action, stepCost in problem.getSuccessors(state):
+            if successor not in visited:
+                queue.push((successor, path + [action]))
+
+    return []  # khong tim dc duong
     util.raiseNotDefined()
 
 def uniformCostSearch(problem: SearchProblem):
